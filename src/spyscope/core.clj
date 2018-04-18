@@ -106,14 +106,14 @@
 ;;   (if (zero? n) x (fib #spy/t ^{:form true} (dec n)
 ;;                         #spy/t ^{:form true} (* n x)))))
 
-(def ^{:internal true} captured
+(def ^{:internal true} captured-map
   (atom {}))
 
-(defn C [i] (@captured i))
+(defn captured [i] (@captured-map i))
 
 (defn- capture [i data]
   `(let [data# ~data]
-     (swap! captured assoc ~i data#)
+     (swap! captured-map assoc ~i data#)
      data#))
 
 (def c  (partial capture 0))
